@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+      .parastyling{
+          font-weight: bold;
+          font-size: 1rem;
+          cursor: pointer;
+          margin: 0;
+      }
+  </style>
+</head>
+<body>
+    <div class="col-8 m-auto ">
+        <h4 class="my-4 text-capitalize  text-dark">to do list</h4>
+    </div>
+    <div class="col-8 d-flex justify-content-between m-auto my-4">
+        <input class=" mx-2 flex-grow-1 w-80" type="text" id="input-field">
+        <button class="btn btn-dark" id="btn">Try it</button>
+    </div>
+    <div class="col-7 m-auto p-3 text-dark text-capitalize" id="list-container"></div>
+
+<script>
+    let input = document.getElementById('input-field');
+    let btn = document.getElementById('btn');
+    let listbox = document.getElementById('list-container');
+
+    btn.addEventListener('click', function(){
+        if (input.value== '') {
+            alert("You must write something!");
+            listbox.removeChild(todobox);
+        }
+        let todobox = document.createElement('div');
+        todobox.classList.add('d-flex','justify-content-between','mt-2','pb-2','border-bottom')
+        listbox.appendChild(todobox);
+
+        let para = document.createElement('p');
+        para.innerText = input.value;
+        para.classList.add('parastyling','flex-grow-1');
+        todobox.appendChild(para);
+
+        // stop button
+        let sbtn = document.createElement('button');
+        sbtn.innerText = "Stop";
+        sbtn.classList.add('btn','btn-light','me-2');
+        todobox.appendChild(sbtn);
+
+        sbtn.addEventListener('click', function(){
+            sbtn.classList.remove('btn-light');
+            sbtn.classList.add('btn-warning');
+            pbtn.classList.remove('btn-primary');
+            pbtn.classList.add('btn-light');
+        })
+
+        // proccessing button
+        let pbtn = document.createElement('button');
+        pbtn.innerText = "Processing...";
+        pbtn.classList.add('btn','btn-light','me-2');
+        todobox.appendChild(pbtn);
+
+        pbtn.addEventListener('click', function(){
+            pbtn.classList.remove('btn-light');
+            pbtn.classList.add('btn-primary');
+            sbtn.classList.remove('btn-warning');
+            sbtn.classList.add('btn-light');
+        })
+        
+        // remove burron
+        let rbtn = document.createElement('button');
+        rbtn.innerText = "Remove";
+        rbtn.classList.add('btn','btn-light');
+        todobox.appendChild(rbtn);
+
+        rbtn.addEventListener('click', function(){
+            rbtn.classList.remove('btn-light');
+            rbtn.classList.add('btn-danger');
+            pbtn.classList.remove('btn-primary');
+            pbtn.classList.add('btn-light');
+            sbtn.classList.remove('btn-warning');
+            sbtn.classList.add('btn-light');
+        })
+        rbtn.addEventListener('dblclick', function(){
+            listbox.removeChild(todobox);
+        })
+
+        input.value = "";     
+    })
+    input.addEventListener('keyup',function(event){
+        if(event.keyCode === 13){
+            btn.click();
+        }
+    })
+</script>
+</body>
+</html>
